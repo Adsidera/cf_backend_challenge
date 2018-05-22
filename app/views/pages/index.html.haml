@@ -1,9 +1,10 @@
 .jumbotron
   %h3.text-uppercase.text-center.display-4 Our Courses
 .container-fluid
-  .row
-    .col-2{style:"background-color:red;"}
-      = get_geo_response["location"]["country_flag_emoji"]
+  .row.mx-auto
+    .col-2
+      .mx-auto.px-auto
+        %p Currency localized for #{get_geo_response["location"]["country_flag_emoji"]}
   .row
     .card-deck.mx-auto.mb-5
       - courses_collection.each do |course|
