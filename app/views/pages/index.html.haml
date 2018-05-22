@@ -1,7 +1,9 @@
 .jumbotron
   %h3.text-uppercase.text-center.display-4 Our Courses
 .container-fluid
-  = get_geo_response["location"]["country_flag_emoji"]
+  .row
+    .col-2{style:"background-color:red;"}
+      = get_geo_response["location"]["country_flag_emoji"]
   .row
     .card-deck.mx-auto.mb-5
       - courses_collection.each do |course|
