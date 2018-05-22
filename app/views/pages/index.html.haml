@@ -15,8 +15,9 @@
                 %h6
                   %strong.text-uppercase{ id: "#{ course[0]}" }
                     .collapsed{"aria-controls":"details_#{course[0]}", "aria-expanded": "true", "data-target": "#details_#{course[0]}", "data-toggle": "collapse"}
-                      %a.title #{get_friendly_title(course)}
-                      %a.title.bold.d-inline-block.float-right +
+                      %a.title
+                        #{get_friendly_title(course)}
+                        = icon('fas', 'plus', class: 'float-right')
 
               .card-text
                 %ul.list-unstyled
