@@ -1,0 +1,46 @@
+.jumbotron
+  %h3.text-uppercase.text-center.display-4 Our Courses
+.container-fluid
+  = get_geo_response["location"]["country_flag_emoji"]
+  .row
+    .card-deck.mx-auto.mb-5
+      - courses_collection.each do |course|
+        .col-lg-4.mb-lg-4#accordion
+          .card.d-block
+            .card-header{id:"heading_#{course[0]}"}
+              .card-title
+                %h6
+                  %strong.text-uppercase{ id: "#{ course[0]}" }
+                    .collapsed{"aria-controls":"details_#{course[0]}", "aria-expanded": "true", "data-target": "#details_#{course[0]}", "data-toggle": "collapse"}
+                      %a.title #{get_friendly_title(course)}
+                      %a.title.bold.d-inline-block.float-right +
+
+              .card-text
+                %ul.list-unstyled
+                  - course[1].extract!("author").each do |k, v|
+                    %li.text-capitalize.d-block
+                      %strong #{ k }: #{ v }
+                  %li Next Start: #{course[1].extract!("next_start_formatted").values.join(" ")}
+                  %li.mt-lg-2
+
+            .card-body.collapse{id: "details_#{course[0]}", "aria-labelledby"=>"heading_#{course[0]}", "data-parent"=>"#accordion"}
+              %ul.list-unstyled.my-auto
+                %li
+                  %strong Start Dates
+                - course_details_of(course[0], "start_dates").each do |date|
+                  - date.each do |d|
+                    %li #{ d }
+                %li.pt-2
+                  %strong Price
+                - if is_uk?
+                  - course_contents(course[0]).extract!("price").dig("price").dig("UK").each do |key, price|
+                    %li #{ key }: #{ price }
+                - if is_eu?
+                  - course_contents(course[0]).extract!("price").dig("price").dig("EU").each do |key, price|
+                    %li #{ key }: #{ price }
+                - if !is_uk? && !is_eu?
+                  - course_contents(course[0]).extract!("price").dig("price").dig("NA").each do |key, price|
+                    %li #{ key }: #{ price }
+                %li.pt-4
+                  = link_to course[0]["url"], class: 'btn btn-primary' do
+                    Enroll
