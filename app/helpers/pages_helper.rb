@@ -40,7 +40,7 @@ module PagesHelper
   end
 
   def geo_response
-    "http://api.ipstack.com/#{request.remote_ip}?access_key=53b051269bf532b57faf2a0f8a9f21b9"
+    "http://api.ipstack.com/#{request.remote_ip}?access_key=#{ENV['GEOIP_API_KEY']}"
   end
 
   def get_geo_response
@@ -57,5 +57,9 @@ module PagesHelper
 
   def is_eu?
     get_geo_response["location"]["is_eu"] == true && get_geo_response["country_name"] != "UK"
+  end
+
+  def link_to_correct_url(slug)
+    "https://careerfoundry.com/en/courses/#{slug}"
   end
 end

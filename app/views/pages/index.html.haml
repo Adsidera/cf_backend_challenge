@@ -42,5 +42,5 @@
                   - course_contents(course[0]).extract!("price").dig("price").dig("NA").each do |key, price|
                     %li #{ key }: #{ price }
                 %li.pt-4
-                  = link_to course[0]["url"], class: 'btn btn-primary' do
+                  = link_to link_to_correct_url(course[0]), class: 'btn btn-primary' do
                     Enroll
