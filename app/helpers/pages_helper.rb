@@ -29,11 +29,11 @@ module PagesHelper
   # Method is_uk? and is_eu? are to check the country of origin of the internet visitor
   # and will be used to show the course price with the appropriate currency
   def is_uk?
-    get_geo_response["country_name"] == "UK"
+    get_geo_response["country_code"] == "GB"
   end
 
   def is_eu?
-    get_geo_response["location"]["is_eu"] == true && get_geo_response["country_name"] != "UK"
+    get_geo_response["location"]["is_eu"] == true && get_geo_response["country_code"] != "GB"
   end
 
   # This is to fetch the url to the course that is linked in the button 'Enroll'
