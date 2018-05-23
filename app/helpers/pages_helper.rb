@@ -1,22 +1,4 @@
 module PagesHelper
-
-  def get_data_from(url)
-    response = RestClient.get(url)
-    JSON.parse(response)
-  end
-
-  def base_url
-    "https://careerfoundry.com/en/api/courses"
-  end
-
-  def course_url(slug)
-    "https://careerfoundry.com/en/api/courses/#{slug}"
-  end
-
-  def courses
-    get_data_from(base_url)
-  end
-
   def courses_collection
     courses.dig("courses")
   end
@@ -39,18 +21,13 @@ module PagesHelper
     course_contents(course).extract!(key).values.join(", ")
   end
 
-  def geo_response
-    "http://api.ipstack.com/#{request.remote_ip}?access_key=#{ENV['GEOIP_API_KEY']}"
-  end
-
-  def get_geo_response
-    get_data_from(geo_response)
-  end
-
+  # This is just a plus method to fetch a fancy emoji for the country of the internet visitor from the response
   def geo_emoji
     get_geo_response["location"]["country_flag_emoji"]
   end
 
+  # Method is_uk? and is_eu? are to check the country of origin of the internet visitor
+  # and will be used to show the course price with the appropriate currency
   def is_uk?
     get_geo_response["country_name"] == "UK"
   end
@@ -59,6 +36,7 @@ module PagesHelper
     get_geo_response["location"]["is_eu"] == true && get_geo_response["country_name"] != "UK"
   end
 
+  # This is to fetch the url to the course that is linked in the button 'Enroll'
   def link_to_correct_url(slug)
     "https://careerfoundry.com/en/courses/#{slug}"
   end
