@@ -23,8 +23,9 @@
                 %ul.list-unstyled
                   - course[1].extract!("author").each do |k, v|
                     %li.text-capitalize.d-block
-                      %strong #{ k }: #{ v }
-                  %li Next Start: #{course[1].extract!("next_start_formatted").values.join(" ")}
+                      #{ k }: #{ v }
+                  %li
+                    %strong Next Start: #{course[1].extract!("next_start_formatted").values.join(" ")}
                   %li.mt-lg-2
 
             .card-body.collapse{id: "details_#{course[0]}", "aria-labelledby"=>"heading_#{course[0]}", "data-parent"=>"#accordion"}
